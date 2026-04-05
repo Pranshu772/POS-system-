@@ -1,0 +1,7 @@
+{
+  "name": "Remix: SuperPOS Terminal",
+  "description": "A high-performance, mobile-first Point of Sale system for modern retail.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
