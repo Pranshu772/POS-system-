@@ -19,6 +19,13 @@ jobs:
         with:
           node-version: 18
 
+      # Java setup (required for Android build)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
       # Install dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -29,15 +36,19 @@ jobs:
 
       # Install Capacitor
       - name: Install Capacitor
-        run: npm install @capacitor/core @capacitor/cli
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Capacitor CLI
+        run: npm install -g @capacitor/cli
 
-      # Init Capacitor
+      # Init Capacitor (only if needed)
       - name: Init Capacitor
-        run: npx cap init pos.app com.pos.app --web-dir=dist
+        run: npx cap init pos.app com.pos.app --web-dir=dist || true
 
-      # Add Android platform
+      # Add Android platform (only if needed)
       - name: Add Android
-        run: npx cap add android
+        run: npx cap add android || true
 
       # Copy build files
       - name: Copy files
